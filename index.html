@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    span.s1 {font: 12.0px 'Apple Color Emoji'}
+  </style>
+</head>
+<body>
+<p class="p1">import React, { useState } from 'react';</p>
+<p class="p1">import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LineChart, Line } from 'recharts';</p>
+<p class="p2"><br></p>
+<p class="p1">const Analysis = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const [activeTab, setActiveTab] = useState('overview');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const [showMethodology, setShowMethodology] = useState(false);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Priority data organized by tiers</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const priorityData = [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Realistic mandates &amp; political strategy", percentage: 100, count: 41, tier: "Top", color: "#004d9f" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Adapt to geopolitical realities", percentage: 98, count: 40, tier: "Top", color: "#006bb3" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "UN role in peace &amp; security", percentage: 98, count: 40, tier: "Top", color: "#006bb3" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Flexibility &amp; adaptability", percentage: 95, count: 39, tier: "Top", color: "#0080cc" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Investment in partnerships", percentage: 95, count: 39, tier: "Top", color: "#0080cc" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Peace operations continuum", percentage: 88, count: 36, tier: "High", color: "#00a651" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Host state consent", percentage: 85, count: 35, tier: "High", color: "#00b359" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Transparency &amp; inclusivity", percentage: 83, count: 34, tier: "High", color: "#00c062" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Focused mandates", percentage: 78, count: 32, tier: "High", color: "#00cc6a" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Financial &amp; resource constraints", percentage: 76, count: 31, tier: "High", color: "#00d973" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "New technologies &amp; misinformation", percentage: 66, count: 27, tier: "Medium", color: "#ffcc00" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Safety &amp; security of peacekeepers", percentage: 46, count: 19, tier: "Medium", color: "#ffd633" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Protection of civilians", percentage: 46, count: 19, tier: "Medium", color: "#ffd633" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Women, Peace &amp; Security", percentage: 44, count: 18, tier: "Medium", color: "#ffe066" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Accountability for performance", percentage: 20, count: 8, tier: "Low", color: "#ff6900" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ name: "Sexual exploitation &amp; abuse", percentage: 12, count: 5, tier: "Low", color: "#ff8533" }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const tierSummary = [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ tier: "Top Tier (&gt;90%)", count: 5, color: "#009edb", description: "Universal/Near-universal consensus" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ tier: "High Priority (70-89%)", count: 5, color: "#00a651", description: "Strong majority support" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ tier: "Medium Priority (40-69%)", count: 4, color: "#ffcc00", description: "Moderate attention" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ tier: "Lower Priority (&lt;40%)", count: 2, color: "#ff6900", description: "Limited focus" }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const methodologyData = {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scMeeting: { date: "March 2025", countries: 25, type: "Security Council" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gaMeeting: { date: "May 2025", countries: 28, type: "General Assembly" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>overlap: 12,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>total: 41</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const overlappingCountries = [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>"Algeria", "Austria", "Denmark", "Egypt", "France", "Indonesia",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>"Latvia", "Pakistan", "Russian Federation", "Turkiye", "United Kingdom", "United States"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const allCountries = [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>"Algeria", "Austria", "Belgium", "Brazil", "Cambodia", "China", "Colombia", "Croatia",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>"Czechia", "Denmark", "Ecuador", "Egypt", "El Salvador", "France", "Germany", "Greece",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>"Guyana", "India", "Indonesia", "Ireland", "Italy", "Japan", "Kazakhstan", "Latvia",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>"Mexico", "Morocco", "Pakistan", "Panama", "Peru", "Portugal", "Republic of Korea",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>"Russian Federation", "Sierra Leone", "Slovenia", "Somalia", "South Africa", "Sri Lanka",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>"Switzerland", "Turkiye", "United Kingdom", "United States"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const insights = [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>title: "Universal Consensus",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>description: "100% agreement on realistic mandates shows unprecedented unity",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: "#004d9f",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>icon: "<span class="s1">🎯</span>"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>title: "Core Reform Areas",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">      </span>description: "95-100% agreement on fundamental peacekeeping changes",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: "#009edb",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>icon: "<span class="s1">🔄</span>"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>title: "Emerging Challenges",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>description: "66% focus on new technologies reflects evolving security landscapes",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: "#ffcc00",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>icon: "<span class="s1">🔧</span>"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>title: "Accountability Gap",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>description: "Low mention rates (12-20%) may indicate blind spots requiring attention",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: "#ff6900",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>icon: "<span class="s1">⚠️</span>"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const CustomTooltip = ({ active, payload, label }) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (active &amp;&amp; payload &amp;&amp; payload.length) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const data = payload[0].payload;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div className="bg-white p-4 border border-gray-300 rounded-lg shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p className="font-semibold text-gray-800"&gt;{label}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p className="text-blue-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span className="font-medium"&gt;{data.percentage}%&lt;/span&gt; ({data.count}/41 countries)</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p className="text-sm text-gray-600 capitalize"&gt;{data.tier} Priority&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return null;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div className="min-h-screen bg-gray-50 p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{/* Header */}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div className="max-w-7xl mx-auto mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-blue-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div className="flex items-center gap-4 mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span className="text-2xl text-white"&gt;<span class="s1">🕊️</span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h1 className="text-4xl font-bold text-gray-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>UN Peacekeeping Reform Priorities</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p className="text-xl text-gray-600 mt-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Merged Analysis from Security Council &amp; General Assembly Meetings (2025)</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>{/* Key Stats */}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div className="grid grid-cols-2 md:grid-cols-4 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="text-3xl font-bold text-blue-600"&gt;41&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="text-sm text-gray-600"&gt;Total Countries&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="text-center p-4 bg-green-50 rounded-lg border border-green-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="text-3xl font-bold text-green-600"&gt;100%&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="text-sm text-gray-600"&gt;Top Consensus&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="text-center p-4 bg-yellow-50 rounded-lg border border-yellow-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="text-3xl font-bold text-yellow-600"&gt;16&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="text-sm text-gray-600"&gt;Reform Priorities&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="text-center p-4 bg-purple-50 rounded-lg border border-purple-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="text-3xl font-bold text-purple-600"&gt;12&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="text-sm text-gray-600"&gt;Countries in Both&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>{/* Methodology Toggle */}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div className="mt-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">              </span>onClick={() =&gt; setShowMethodology(!showMethodology)}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;{showMethodology ? '<span class="s1">📖</span>' : '<span class="s1">📚</span>'}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>{showMethodology ? 'Hide' : 'Show'} Methodology</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>{showMethodology &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="mt-4 p-6 bg-gray-50 rounded-lg border border-gray-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 className="text-lg font-semibold text-gray-800 mb-4"&gt;Analysis Methodology&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="grid md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 className="font-medium text-gray-700 mb-2"&gt;Data Sources&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;div className="flex justify-between items-center p-3 bg-white rounded border"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span className="font-medium"&gt;Security Council&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span className="text-gray-600"&gt;March 2025 • 25 countries&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;div className="flex justify-between items-center p-3 bg-white rounded border"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span className="font-medium"&gt;General Assembly&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span className="text-gray-600"&gt;May 2025 • 28 countries&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 className="font-medium text-gray-700 mb-2"&gt;Overlap Analysis&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="p-3 bg-white rounded border"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;div className="flex justify-between mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;Countries in both meetings:&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span className="font-medium"&gt;12&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;div className="flex justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;Total unique countries:&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span className="font-medium"&gt;41&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;div className="mt-2 text-sm text-gray-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Duplicates removed where countries mentioned same topics in both meetings</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="mt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;h4 className="font-medium text-gray-700 mb-2"&gt;Countries in Both Meetings (12)&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="flex flex-wrap gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{overlappingCountries.map(country =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;span key={country} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{country}</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>{/* Navigation Tabs */}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div className="max-w-7xl mx-auto mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div className="bg-white rounded-lg shadow-sm border border-gray-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div className="flex"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{[</p>
+<p class="p1"><span class="Apple-converted-space">              </span>{ id: 'overview', name: 'Priority Overview', icon: '<span class="s1">📊</span>' },</p>
+<p class="p1"><span class="Apple-converted-space">              </span>{ id: 'tiers', name: 'Priority Tiers', icon: '<span class="s1">🏆</span>' },</p>
+<p class="p1"><span class="Apple-converted-space">              </span>{ id: 'insights', name: 'Key Insights', icon: '<span class="s1">💡</span>' },</p>
+<p class="p1"><span class="Apple-converted-space">              </span>{ id: 'countries', name: 'Country Participation', icon: '<span class="s1">🌍</span>' }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>].map(tab =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                </span>key={tab.id}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>onClick={() =&gt; setActiveTab(tab.id)}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>className={`flex-1 px-6 py-4 text-center font-medium transition-colors ${</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>activeTab === tab.id<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>? 'bg-blue-600 text-white'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>: 'text-gray-600 hover:bg-gray-50'</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}`}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span className="mr-2"&gt;{tab.icon}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{tab.name}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>{/* Tab Content */}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div className="max-w-7xl mx-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{activeTab === 'overview' &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div className="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="bg-white rounded-lg shadow-sm p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h2 className="text-2xl font-semibold text-gray-800 mb-6"&gt;Priority Mentions by Percentage&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;ResponsiveContainer width="100%" height={500}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;BarChart data={priorityData} margin={{ top: 20, right: 30, left: 20, bottom: 150 }}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;CartesianGrid strokeDasharray="3 3" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;XAxis<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>dataKey="name"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>angle={-45}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>textAnchor="end"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>height={150}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>interval={0}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>fontSize={11}</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;YAxis<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>domain={[0, 100]}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>tickFormatter={(value) =&gt; `${value}%`}</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;Tooltip content={&lt;CustomTooltip /&gt;} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;Bar dataKey="percentage" radius={[4, 4, 0, 0]}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{priorityData.map((entry, index) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;Cell key={`cell-${index}`} fill={entry.color} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/Bar&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/BarChart&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/ResponsiveContainer&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>{activeTab === 'tiers' &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div className="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="grid md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="bg-white rounded-lg shadow-sm p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 className="text-xl font-semibold text-gray-800 mb-4"&gt;Priority Tier Distribution&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;ResponsiveContainer width="100%" height={300}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;PieChart&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;Pie</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>data={tierSummary}</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>cx="50%"</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>cy="50%"</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>innerRadius={60}</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>outerRadius={100}</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>paddingAngle={5}</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>dataKey="count"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>{tierSummary.map((entry, index) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;Cell key={`cell-${index}`} fill={entry.color} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/Pie&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;Tooltip formatter={(value) =&gt; [`${value} priorities`, 'Count']} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;Legend /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/PieChart&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ResponsiveContainer&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="bg-white rounded-lg shadow-sm p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 className="text-xl font-semibold text-gray-800 mb-4"&gt;Tier Breakdown&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>{tierSummary.map((tier, index) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div key={index} className="border border-gray-200 rounded-lg p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;div className="flex items-center gap-3 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                          </span>className="w-4 h-4 rounded-full"</p>
+<p class="p1"><span class="Apple-converted-space">                          </span>style={{ backgroundColor: tier.color }}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span className="font-semibold text-gray-800"&gt;{tier.tier}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;div className="text-sm text-gray-600 mb-1"&gt;{tier.description}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;div className="text-lg font-bold" style={{ color: tier.color }}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{tier.count} priorities</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="bg-white rounded-lg shadow-sm p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h2 className="text-xl font-semibold text-gray-800 mb-4"&gt;Detailed Priority Breakdown&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{priorityData.map((priority, index) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div key={index} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="flex-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;h3 className="font-medium text-gray-800"&gt;{priority.name}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;p className="text-sm text-gray-600"&gt;{priority.tier} Priority&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="text-right"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;div className="text-xl font-bold" style={{ color: priority.color }}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{priority.percentage}%</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;div className="text-sm text-gray-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{priority.count}/41 countries</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>{activeTab === 'insights' &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div className="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="grid md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>{insights.map((insight, index) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div key={index} className="bg-white rounded-lg shadow-sm p-6 border-l-4" style={{ borderLeftColor: insight.color }}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="flex items-start gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span className="text-3xl"&gt;{insight.icon}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;h3 className="text-lg font-semibold text-gray-800 mb-2"&gt;{insight.title}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;p className="text-gray-600"&gt;{insight.description}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="bg-white rounded-lg shadow-sm p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h2 className="text-xl font-semibold text-gray-800 mb-4"&gt;Analysis Summary&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="prose max-w-none text-gray-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="grid md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 className="font-semibold text-blue-600 mb-2"&gt;<span class="s1">🎯</span> Universal Consensus Areas&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p className="text-sm mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>The analysis reveals unprecedented unity on core peacekeeping reforms,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                      </span>with 100% agreement on realistic mandates and 95-98% consensus on fundamental changes.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 className="font-semibold text-green-600 mb-2"&gt;<span class="s1">🔧</span> Implementation Focus&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p className="text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>High-priority operational issues (70-89% mention rates) center on practical<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                      </span>implementation: peace continuum integration, host consent, transparency, and resource management.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                  </span></p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 className="font-semibold text-yellow-600 mb-2"&gt;<span class="s1">⚡</span> Emerging Challenges&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p className="text-sm mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>New technologies and misinformation emerge as significant concerns (66% mention rate),<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                      </span>reflecting the evolving nature of modern conflicts and peacekeeping operations.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 className="font-semibold text-orange-600 mb-2"&gt;<span class="s1">⚠️</span> Attention Gaps&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p className="text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>Surprisingly low focus on accountability mechanisms (20%) and sexual exploitation<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                      </span>issues (12%) may indicate either significant progress or potential oversight areas.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>{activeTab === 'countries' &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div className="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="bg-white rounded-lg shadow-sm p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h2 className="text-xl font-semibold text-gray-800 mb-4"&gt;Country Participation Analysis&lt;/h2&gt;</p>
+<p class="p2"><span class="Apple-converted-space">              </span></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="grid md:grid-cols-3 gap-6 mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="text-center p-4 bg-blue-50 rounded-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="text-2xl font-bold text-blue-600"&gt;25&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="text-sm text-gray-600"&gt;Security Council&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="text-xs text-gray-500"&gt;March 2025&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="text-center p-4 bg-green-50 rounded-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="text-2xl font-bold text-green-600"&gt;28&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="text-sm text-gray-600"&gt;General Assembly&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="text-xs text-gray-500"&gt;May 2025&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="text-center p-4 bg-purple-50 rounded-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="text-2xl font-bold text-purple-600"&gt;12&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="text-sm text-gray-600"&gt;Both Meetings&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="text-xs text-gray-500"&gt;Overlap&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div className="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;h3 className="font-medium text-gray-800 mb-3"&gt;Countries Participating in Both Meetings&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="flex flex-wrap gap-2 mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{overlappingCountries.map(country =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;span key={country} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{country}</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;h3 className="font-medium text-gray-800 mb-3"&gt;All Participating Countries ({allCountries.length})&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="flex flex-wrap gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{allCountries.map(country =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>const isOverlap = overlappingCountries.includes(country);</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                          </span>key={country}<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                          </span>className={`px-3 py-1 rounded-full text-sm ${</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>isOverlap<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                              </span>? 'bg-purple-100 text-purple-800 font-medium border border-purple-300'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                              </span>: 'bg-gray-100 text-gray-700'</p>
+<p class="p1"><span class="Apple-converted-space">                          </span>}`}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                          </span>{country}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>})}</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div className="mt-3 text-sm text-gray-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span className="font-medium text-purple-600"&gt;Highlighted countries&lt;/span&gt; participated in both meetings</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>);</p>
+<p class="p1">};</p>
+<p class="p2"><br></p>
+<p class="p1">export default Analysis;</p>
+</body>
+</html>
